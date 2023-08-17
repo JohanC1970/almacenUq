@@ -3,7 +3,6 @@ package Almacen.application;
 import java.io.IOException;
 
 import Almacen.controller.AlmacenController;
-import Almacen.controller.ClienteController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +47,7 @@ public class Aplicacion extends Application{
 
 	}
 
+/*
 	public void mostrarVentanaCliente(ActionEvent event){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -64,7 +64,7 @@ public class Aplicacion extends Application{
 			// TODO: handle exception
 		}
 	}
-
+	*/
 
 	public static void main(String[]args){
 		launch(args);

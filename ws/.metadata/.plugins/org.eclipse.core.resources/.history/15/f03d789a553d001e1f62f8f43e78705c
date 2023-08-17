@@ -51,7 +51,7 @@ public class AlmacenController {
 
 	@FXML
     void lanzarVentanaCliente(ActionEvent event) {
-		aplicacion.mostrarVentanaCliente(event);
+		//aplicacion.mostrarVentanaCliente(event);
     }
 
     @FXML
