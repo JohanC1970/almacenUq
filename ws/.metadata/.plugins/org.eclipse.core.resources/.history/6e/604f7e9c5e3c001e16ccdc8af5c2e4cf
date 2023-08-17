@@ -1,0 +1,42 @@
+package Almacen.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
+public class AlmacenController {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private Button btnVenta;
+
+    @FXML
+    private Button btnProducto;
+
+    @FXML
+    private Button btnClientes;
+
+    @FXML
+    void lanzarVentanaCliente(ActionEvent event) {
+
+    }
+
+    @FXML
+    void lanzarVentanaProducto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void lanzarPestaniaVenta(ActionEvent event) {
+
+    }
+
+}

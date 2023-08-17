@@ -1,0 +1,148 @@
+package Almacen.model;
+
+public class Persona {
+
+	private String nombres;
+	private String apellidos;
+	private String identificacion;
+	private String direccion;
+	private String telefono;
+	private TipoPersona tipoPersona;
+
+
+	public Persona(String nombres, String apellidos, String identificacion, String direccion, String telefono,
+			TipoPersona tipoPersona) {
+		super();
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.identificacion = identificacion;
+		this.direccion = direccion;
+		this.telefono = telefono;
+		this.tipoPersona = tipoPersona;
+	}
+
+
+	public String getNombres() {
+		return nombres;
+	}
+
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+
+	public TipoPersona getTipoPersona() {
+		return tipoPersona;
+	}
+
+
+	public void setTipoPersona(TipoPersona tipoPersona) {
+		this.tipoPersona = tipoPersona;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Persona [nombres=" + nombres + ", apellidos=" + apellidos + ", identificacion=" + identificacion
+				+ ", direccion=" + direccion + ", telefono=" + telefono + ", tipoPersona=" + tipoPersona + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((apellidos == null) ? 0 : apellidos.hashCode());
+		result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
+		result = prime * result + ((identificacion == null) ? 0 : identificacion.hashCode());
+		result = prime * result + ((nombres == null) ? 0 : nombres.hashCode());
+		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
+		result = prime * result + ((tipoPersona == null) ? 0 : tipoPersona.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		if (apellidos == null) {
+			if (other.apellidos != null)
+				return false;
+		} else if (!apellidos.equals(other.apellidos))
+			return false;
+		if (direccion == null) {
+			if (other.direccion != null)
+				return false;
+		} else if (!direccion.equals(other.direccion))
+			return false;
+		if (identificacion == null) {
+			if (other.identificacion != null)
+				return false;
+		} else if (!identificacion.equals(other.identificacion))
+			return false;
+		if (nombres == null) {
+			if (other.nombres != null)
+				return false;
+		} else if (!nombres.equals(other.nombres))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		if (tipoPersona != other.tipoPersona)
+			return false;
+		return true;
+	}
+
+
+
+
+}

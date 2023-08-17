@@ -1,0 +1,26 @@
+package Almacen.model;
+
+public class Cliente extends Persona{
+
+	private String fechaNacimiento;
+	private String email;
+	private String nit;
+
+
+	public Cliente(String nombres, String apellidos, String identificacion, String direccion, String telefono,
+			TipoPersona tipoPersona, String fechaNacimiento, String email, String nit) {
+		super(nombres, apellidos, identificacion, direccion, telefono, tipoPersona);
+
+		if(tipoPersona.equals(TipoPersona.NATURAL)){
+			this.fechaNacimiento = fechaNacimiento;
+			this.email = email;
+			this.nit = "";
+		}else{
+			this.nit = nit;
+			this.fechaNacimiento = "";
+			this.email = "";
+		}
+	}
+
+
+}

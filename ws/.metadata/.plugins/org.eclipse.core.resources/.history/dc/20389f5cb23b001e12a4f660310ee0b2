@@ -1,0 +1,5 @@
+package Almacen.model;
+
+public class ClienteNatural {
+
+}
