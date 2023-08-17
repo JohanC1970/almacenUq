@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="D:\Programacion\Programacion_2\concesionarioUQ\ws"/>
+		<item value="D:\Programacion\Programacion_2\centroImpresion\ws"/>
+		<item value="D:\Programacion\Programacion_2\agendaContactos\ws\agenda"/>
+		<item value="D:\Programacion\Programacion_2\agendaContactos"/>
+		<item value="D:\Programacion\Programacion_2\agenda"/>
+		<item value="D:\Programacion\Programacion_2\centroImpresion\ws\centroImpresion"/>
+		<item value="D:\Programacion\Programacion_2\centroImpresion"/>
+		<item value="D:\Programacion\Programacion_2\concesionarioUQ"/>
+		<item value="D:\Programacion\Programacion_2\banco\ws"/>
+	</list>
+</section>

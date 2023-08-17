@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="Almacen.model.TipoPersona"/>
+<fullyQualifiedTypeName name="Almacen.exception.ProductoException"/>
+<fullyQualifiedTypeName name="Almacen.exception.ClienteException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javafx.application.Application"/>
+<fullyQualifiedTypeName name="javafx.fxml.FXMLLoader"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.AnchorPane"/>
+<fullyQualifiedTypeName name="Almacen.controller.AlmacenController"/>
+<fullyQualifiedTypeName name="javafx.event.ActionEvent"/>
+<fullyQualifiedTypeName name="javafx.scene.input.KeyEvent"/>
+<fullyQualifiedTypeName name="Almacen.controller.ModelFactoryController"/>
+<fullyQualifiedTypeName name="javafx.stage.Stage"/>
+<fullyQualifiedTypeName name="Almacen.application.Aplicacion"/>
+<fullyQualifiedTypeName name="Almacen.model.Almacen"/>
+<fullyQualifiedTypeName name="javafx.fxml.Initializable"/>
+<fullyQualifiedTypeName name="javafx.collections.FXCollections"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="Almacen.model.Cliente"/>
+<fullyQualifiedTypeName name="Almacen.controller.ClienteController"/>
+<fullyQualifiedTypeName name="Almacen.model.ClienteNatural"/>
+<fullyQualifiedTypeName name="Almacen.model.ClienteJuridico"/>
+<fullyQualifiedTypeName name="javafx.scene.control.Alert.AlertType"/>
+</qualifiedTypeNameHistroy>

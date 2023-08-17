@@ -1,0 +1,112 @@
+package Almacen.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Almacen {
+
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	private List<Venta>listaVentas = new ArrayList<Venta>();
+	private List<Producto>listaProductos = new ArrayList<Producto>();
+
+	public Almacen(List<Cliente> listaClientes, List<Venta> listaVentas, List<Producto> listaProductos) {
+		super();
+		this.listaClientes = listaClientes;
+		this.listaVentas = listaVentas;
+		this.listaProductos = listaProductos;
+	}
+
+	public List<Cliente> getListaClientes() {
+		return listaClientes;
+	}
+
+	public void setListaClientes(List<Cliente> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
+	public List<Venta> getListaVentas() {
+		return listaVentas;
+	}
+
+	public void setListaVentas(List<Venta> listaVentas) {
+		this.listaVentas = listaVentas;
+	}
+
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
+
+	public void setListaProductos(List<Producto> listaProductos) {
+		this.listaProductos = listaProductos;
+	}
+
+	@Override
+	public String toString() {
+		return "Almacen [listaClientes=" + listaClientes + ", listaVentas=" + listaVentas + ", listaProductos="
+				+ listaProductos + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((listaClientes == null) ? 0 : listaClientes.hashCode());
+		result = prime * result + ((listaProductos == null) ? 0 : listaProductos.hashCode());
+		result = prime * result + ((listaVentas == null) ? 0 : listaVentas.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Almacen other = (Almacen) obj;
+		if (listaClientes == null) {
+			if (other.listaClientes != null)
+				return false;
+		} else if (!listaClientes.equals(other.listaClientes))
+			return false;
+		if (listaProductos == null) {
+			if (other.listaProductos != null)
+				return false;
+		} else if (!listaProductos.equals(other.listaProductos))
+			return false;
+		if (listaVentas == null) {
+			if (other.listaVentas != null)
+				return false;
+		} else if (!listaVentas.equals(other.listaVentas))
+			return false;
+		return true;
+	}
+
+
+	//------------------------------FUNCIONES CLIENTE---------------------------------
+
+	/**
+	 * Metodo para verificar la existencia de un cliente
+	 * @param identificacion
+	 * @return
+	 */
+	public boolean verificarExistenciaCliente(String identificacion){
+
+		for (Cliente cliente : listaClientes) {
+			if(cliente.getIdentificacion().equals(identificacion)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean crearCliente(String nombres, String apellidos, String identificacion, String direccion, String telefono,
+			TipoPersona tipoPersona, String fechaNacimiento, String email, String nit){
+
+		if()
+
+
+		return false;
+	}
+}

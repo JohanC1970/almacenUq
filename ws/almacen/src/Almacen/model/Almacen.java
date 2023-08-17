@@ -1,0 +1,301 @@
+package Almacen.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Almacen.exception.ClienteException;
+import Almacen.exception.ProductoException;
+
+public class Almacen {
+
+	private String codigo;
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	private List<Venta>listaVentas = new ArrayList<Venta>();
+	private List<Producto>listaProductos = new ArrayList<Producto>();
+
+	public Almacen(String codigo) {
+		super();
+		this.codigo = codigo;
+		this.listaClientes = listaClientes;
+		this.listaVentas = listaVentas;
+		this.listaProductos = listaProductos;
+	}
+
+	public List<Cliente> getListaClientes() {
+		return listaClientes;
+	}
+
+	public void setListaClientes(List<Cliente> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
+	public List<Venta> getListaVentas() {
+		return listaVentas;
+	}
+
+	public void setListaVentas(List<Venta> listaVentas) {
+		this.listaVentas = listaVentas;
+	}
+
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
+
+	public void setListaProductos(List<Producto> listaProductos) {
+		this.listaProductos = listaProductos;
+	}
+
+	@Override
+	public String toString() {
+		return "Almacen [listaClientes=" + listaClientes + ", listaVentas=" + listaVentas + ", listaProductos="
+				+ listaProductos + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((listaClientes == null) ? 0 : listaClientes.hashCode());
+		result = prime * result + ((listaProductos == null) ? 0 : listaProductos.hashCode());
+		result = prime * result + ((listaVentas == null) ? 0 : listaVentas.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Almacen other = (Almacen) obj;
+		if (listaClientes == null) {
+			if (other.listaClientes != null)
+				return false;
+		} else if (!listaClientes.equals(other.listaClientes))
+			return false;
+		if (listaProductos == null) {
+			if (other.listaProductos != null)
+				return false;
+		} else if (!listaProductos.equals(other.listaProductos))
+			return false;
+		if (listaVentas == null) {
+			if (other.listaVentas != null)
+				return false;
+		} else if (!listaVentas.equals(other.listaVentas))
+			return false;
+		return true;
+	}
+
+
+	//------------------------------FUNCIONES CLIENTE---------------------------------
+
+	/**
+	 * Este metodo verifica la existencia de un cliente dada su identificacion
+	 * @param identificacion
+	 * @return
+	 */
+	public boolean verificarExistenciaCliente(String identificacion){
+
+		for (Cliente cliente : listaClientes) {
+			if(cliente.getIdentificacion().equals(identificacion)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Este metodo es para obtener un cliene dada su identificacion, si no se encuentra
+	 * retorna un valor null
+	 * @param identificacion
+	 * @return
+	 */
+	public Cliente obtenerCliente(String identificacion){
+
+		for (Cliente cliente : listaClientes) {
+			if(cliente.getIdentificacion().equals(identificacion)){
+				return cliente;
+			}
+		}
+		return null;
+	}
+	/**
+	 * Este metodo es para crear un cliene natural, en caso de que no se pueda crear se manda
+	 * una exception propia
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param fechaNacimiento
+	 * @param email
+	 * @return
+	 * @throws ClienteException
+	 */
+	public boolean crearClienteNatural(String nombre, String apellidos, String identificacion,
+			String telefono, String direccion,String fechaNacimiento, String email) throws ClienteException{
+
+		if(verificarExistenciaCliente(identificacion)){
+			throw new ClienteException("El cliente ya existe");
+		}
+		Cliente clienteNuevo = new ClienteNatural(nombre,apellidos,identificacion,telefono,
+				direccion,fechaNacimiento,email);
+		listaClientes.add(clienteNuevo);
+		return true;
+	}
+
+	/**
+	 * Este metodo es para crear un cliente juridico, en caso de que no se pueda crear se manda
+	 * una exception propia
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param nit
+	 * @return
+	 * @throws ClienteException
+	 */
+	public boolean crearClienteJuridico(String nombre, String apellidos, String identificacion,
+			String telefono, String direccion,String nit) throws ClienteException{
+
+		if(verificarExistenciaCliente(identificacion)){
+			throw new ClienteException("El cliente ya existe");
+		}
+		Cliente clienteNuevo = new ClienteJuridico(nombre,apellidos,identificacion,telefono,
+				direccion,nit);
+		listaClientes.add(clienteNuevo);
+		return true;
+	}
+
+	/**
+	 * Este metodo es para eliminar un cliente, en caso de que el cliente no se encuentre
+	 * registrado se envia una exception propia
+	 * @param identificacion
+	 * @return
+	 * @throws ClienteException
+	 */
+	public boolean EliminarCliente(String identificacion) throws ClienteException{
+
+		if(obtenerCliente(identificacion) == null){
+			throw new ClienteException("El cliente no existe");
+		}
+
+		listaClientes.remove(obtenerCliente(identificacion));
+		return true;
+	}
+
+	//---------------------------------FUNCIONES PRODUCTO -----------------------------------
+
+	/**
+	 * Este metodo verifica la existencia de un producto dado su codigo
+	 * @param codigo
+	 * @return
+	 */
+	public boolean verificarExistenciaProducto(String codigo){
+
+		for (Producto producto : listaProductos) {
+			if(producto.getCodigo().equals(codigo)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Este metodo me crea un producto perecedero
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param valorUnitario
+	 * @param cantidadExistencia
+	 * @param fechaVencimiento
+	 * @return
+	 * @throws ProductoException
+	 */
+	public boolean crearProductoPerecedero(String codigo, String nombre, String descripcion,
+			double valorUnitario,int cantidadExistencia, String fechaVencimiento) throws ProductoException{
+
+		if(verificarExistenciaProducto(codigo)){
+			throw new ProductoException("El producto ya existe");
+		}
+		Producto producto = new ProductoPerecedero(codigo,nombre,descripcion,valorUnitario,
+				cantidadExistencia, fechaVencimiento);
+		listaProductos.add(producto);
+
+		return true;
+
+	}
+
+	/**
+	 * Este metodo es para crear un producto refrigerado
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param valorUnitario
+	 * @param cantidadExistencia
+	 * @param codigoAprobacion
+	 * @param temperaturaRefrigeracion
+	 * @return
+	 * @throws ProductoException
+	 */
+	public boolean crearProductoRefrigerado(String codigo, String nombre, String descripcion,
+			double valorUnitario,int cantidadExistencia, String codigoAprobacion,
+			int temperaturaRefrigeracion) throws ProductoException{
+
+		if(verificarExistenciaProducto(codigo)){
+			throw new ProductoException("El producto ya existe");
+		}
+		Producto producto = new ProductoRefrigerado(codigo,nombre,descripcion,valorUnitario,
+				cantidadExistencia, codigoAprobacion,temperaturaRefrigeracion);
+		listaProductos.add(producto);
+
+		return true;
+	}
+
+	/**
+	 * Este metodo es para crear un producto envasado
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param valorUnitario
+	 * @param cantidadExistencia
+	 * @param fechaEnvasado
+	 * @param peso
+	 * @param paisOrigen
+	 * @return
+	 * @throws ProductoException
+	 */
+	public boolean crearProductoEnvasado(String codigo, String nombre, String descripcion,
+			double valorUnitario,int cantidadExistencia,String fechaEnvasado, double peso, PaisOrigen paisOrigen) throws ProductoException{
+
+		if(verificarExistenciaProducto(codigo)){
+			throw new ProductoException("El producto ya existe");
+		}
+		Producto producto = new ProductoEnvasado(codigo,nombre,descripcion,valorUnitario,
+				cantidadExistencia, fechaEnvasado,peso,paisOrigen);
+		listaProductos.add(producto);
+
+		return true;
+	}
+
+	/**
+	 * Este metodo es para obtener un producto
+	 * @param codigo
+	 * @return
+	 */
+	public Producto obtenerProducto(String codigo){
+		for (Producto producto : listaProductos) {
+			if(producto.getCodigo().equals(codigo)){
+				return producto;
+			}
+		}
+		return null;
+	}
+
+	//-------------------------------FUNCIONES VENTA---------------------------------------
+
+
+}

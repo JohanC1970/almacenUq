@@ -1,0 +1,11 @@
+package Almacen.model;
+
+public class DetalleVenta {
+
+	private Producto productoVendido;
+	private int cantidadProducto;
+	private double subTotal;
+
+
+
+}

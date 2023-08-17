@@ -1,0 +1,108 @@
+package Almacen;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import Almacen.model.Cliente;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+
+public class ClienteController {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private Label lblNit;
+
+    @FXML
+    private Label lblFechaNacimiento;
+
+    @FXML
+    private TextField txtDireccion;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private TableColumn<Cliente,String> columnApellido;
+
+    @FXML
+    private Label lblEmail;
+
+    @FXML
+    private TextField txtNit;
+
+    @FXML
+    private TableColumn<Cliente,String> columnNombre;
+
+    @FXML
+    private DatePicker dateFecha;
+
+    @FXML
+    private TextField txtIdentificacion;
+
+    @FXML
+    private TableColumn<Ti, ?> columnTipoCliente;
+
+    @FXML
+    private TableView<?> tableClientes;
+
+    @FXML
+    private TableColumn<?, ?> columnTelefono;
+
+    @FXML
+    private TextField txtNombre;
+
+    @FXML
+    private TableColumn<?, ?> columnIdentificacion;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private TextField txtTelefono;
+
+    @FXML
+    private TextField txtApellido;
+
+    @FXML
+    private ComboBox<?> comBoxTipoCliente;
+
+    @FXML
+    private Button btnRegistrar;
+
+    @FXML
+    private Button btnActualizar;
+
+    @FXML
+    void validarIngresoNumeros(KeyEvent event) {
+
+    }
+
+    @FXML
+    void eliminarCliente(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actualizarCliente(ActionEvent event) {
+
+    }
+
+    @FXML
+    void registrarCliente(ActionEvent event) {
+
+    }
+}

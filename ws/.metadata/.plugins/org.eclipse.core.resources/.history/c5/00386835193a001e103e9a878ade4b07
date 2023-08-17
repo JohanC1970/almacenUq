@@ -1,0 +1,14 @@
+package Almacen.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Almacen {
+
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	private List<Venta>listaVentas = new ArrayList<Venta>();
+	private List<Producto>listaProductos = new ArrayList<Producto>();
+
+
+
+}
