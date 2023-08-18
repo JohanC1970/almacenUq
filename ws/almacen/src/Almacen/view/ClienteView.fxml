@@ -25,13 +25,13 @@
       <Label layoutX="735.0" layoutY="231.0" text="Fecha Nacimiento:" />
       <Label layoutX="364.0" layoutY="228.0" text="Nit: " />
       <Button fx:id="btnActualizar" layoutX="549.0" layoutY="306.0" mnemonicParsing="false" onAction="#actualizarCliente" text="Actualizar" />
-      <Button fx:id="btnEliminar" layoutX="435.0" layoutY="600.0" mnemonicParsing="false" onAction="#eliminarCliente" text="Eliminar cliente" />
+      <Button fx:id="btnEliminar" layoutX="870.0" layoutY="597.0" mnemonicParsing="false" onAction="#eliminarCliente" text="Eliminar cliente" />
       <TextField fx:id="txtNombre" layoutX="14.0" layoutY="119.0" prefHeight="39.0" prefWidth="287.0" />
       <TextField fx:id="txtApellido" layoutX="364.0" layoutY="119.0" prefHeight="39.0" prefWidth="287.0" />
-      <TextField fx:id="txtIdentificacion" layoutX="735.0" layoutY="119.0" onKeyTyped="#validarIngresoNumeros" prefWidth="287.0" />
+      <TextField fx:id="txtIdentificacion" layoutX="735.0" layoutY="119.0" onKeyTyped="#validarIngresoNumeros" prefHeight="39.0" prefWidth="287.0" />
       <TextField fx:id="txtTelefono" layoutX="14.0" layoutY="187.0" onKeyTyped="#validarIngresoNumeros" prefHeight="39.0" prefWidth="287.0" />
       <TextField fx:id="txtEmail" layoutX="14.0" layoutY="253.0" prefHeight="39.0" prefWidth="287.0" />
-      <TextField fx:id="txtNit" layoutX="364.0" layoutY="253.0" prefWidth="287.0" />
+      <TextField fx:id="txtNit" layoutX="364.0" layoutY="253.0" prefHeight="39.0" prefWidth="287.0" />
       <DatePicker fx:id="dateFechaNacimiento" layoutX="735.0" layoutY="258.0" prefHeight="39.0" prefWidth="287.0" />
       <TextField fx:id="txtDireccion" layoutX="364.0" layoutY="187.0" prefHeight="39.0" prefWidth="287.0" />
       <Separator layoutX="9.0" layoutY="347.0" prefHeight="12.0" prefWidth="1016.0" />

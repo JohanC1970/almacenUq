@@ -63,5 +63,16 @@ public class ModelFactoryController {
 		return false;
 	}
 
+	public boolean crearClienteJuridico(String nombre, String apellidos, String identificacion, String telefono,
+			String direccion, String nit) throws ClienteException {
+		return almacen.crearClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
+	}
+
+	public boolean crearClienteNatural(String nombre, String apellidos, String identificacion, String telefono,
+			String direccion, String email, String fechaNacimiento) throws ClienteException {
+
+		return almacen.crearClienteNatural(nombre, apellidos, identificacion, telefono, direccion, fechaNacimiento, email);
+	}
+
 
 }
