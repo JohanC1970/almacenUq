@@ -187,6 +187,64 @@ public class Almacen {
 		return true;
 	}
 
+
+	/**
+	 * Este metodo me actualiza los datos de un cliente natural, el unico dato que no actualiza es la identificacion
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param fechaNacimiento
+	 * @param email
+	 * @throws ClienteException
+	 */
+	public void actualizarClienteNatural(String nombre, String apellidos, String identificacion, String telefono, String direccion,
+			String fechaNacimiento, String email) throws ClienteException{
+
+		ClienteNatural cliente = (ClienteNatural) obtenerCliente(identificacion);
+
+		if(cliente != null){
+			cliente.setNombre(nombre);
+			cliente.setApellidos(apellidos);
+			cliente.setTelefono(telefono);
+			cliente.setDireccion(direccion);
+			cliente.setFechaNacimiento(fechaNacimiento);
+			cliente.setEmail(email);
+
+		}else{
+			throw new ClienteException("El cliente no existe");
+		}
+	}
+
+
+	/**
+	 * Este metodo actualiza los datos de un cliente juridico, el unico dato que no actualiza es la identificacion
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param nit
+	 * @throws ClienteException
+	 */
+	public void actualizarClienteJuridico(String nombre, String apellidos, String identificacion, String telefono, String direccion,
+			String nit) throws ClienteException{
+
+		ClienteJuridico cliente = (ClienteJuridico) obtenerCliente(identificacion);
+
+		if(cliente !=null){
+			cliente.setNombre(nombre);
+			cliente.setApellidos(apellidos);
+			cliente.setTelefono(telefono);
+			cliente.setDireccion(direccion);
+			cliente.setNit(nit);
+		}else{
+			throw new ClienteException("El cliente no existe");
+		}
+	}
+
+
 	//---------------------------------FUNCIONES PRODUCTO -----------------------------------
 
 	/**

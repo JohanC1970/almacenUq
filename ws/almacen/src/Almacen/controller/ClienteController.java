@@ -1,12 +1,17 @@
 package Almacen.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 import Almacen.application.Aplicacion;
 import Almacen.exception.ClienteException;
 import Almacen.model.Almacen;
 import Almacen.model.Cliente;
+import Almacen.model.ClienteJuridico;
+import Almacen.model.ClienteNatural;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -109,6 +114,7 @@ public class ClienteController implements Initializable{
     	tablaClientes.getSelectionModel().selectedItemProperty().addListener((obs,oldselection,newSelection) ->{
 			if(newSelection != null){
 				clienteSeleccionado = newSelection;
+				mostraInformacionCliente();
 			}
 		});
 
@@ -184,11 +190,15 @@ public class ClienteController implements Initializable{
 
     		if(tipoCliente.equals("Natural")){
         		String email = txtEmail.getText();
-            	String fechaNacimiento = ""+dateFechaNacimiento.getValue();
-            	if(validarCamposTextoClienteNatural(nombre, apellidos, identificacion, telefono,
-            			direccion, email, fechaNacimiento)){
-            		crearClienteNatural(nombre, apellidos, identificacion, telefono,
-            			direccion, email, fechaNacimiento);
+            	if(dateFechaNacimiento.getValue()!=null){
+            		String fechaNacimiento = obtenerFechaComoString(dateFechaNacimiento, "dd/MM/yyyy");
+            		if(validarCamposTextoClienteNatural(nombre, apellidos, identificacion, telefono,
+                			direccion, email, fechaNacimiento)){
+                		crearClienteNatural(nombre, apellidos, identificacion, telefono,
+                			direccion, email, fechaNacimiento);
+                	}
+            	}else{
+            		mostrarMensaje("Gestión clientes", "Proceso incompleto", "La fecha no esta ingresada correctamente", AlertType.INFORMATION);
             	}
         	}
 
@@ -207,6 +217,34 @@ public class ClienteController implements Initializable{
 	@FXML
     void actualizarCliente(ActionEvent event) {
 
+		if(clienteSeleccionado!=null){
+	    	String nombre = txtNombre.getText();
+	    	String apellidos = txtApellido.getText();
+	    	String identificacion = txtIdentificacion.getText();
+	    	String telefono = txtTelefono.getText();
+	    	String direccion = txtDireccion.getText();
+
+	    	if(clienteSeleccionado instanceof ClienteNatural){
+				String email = txtEmail.getText();
+            	if(dateFechaNacimiento.getValue()!=null){
+            		String fechaNacimiento = obtenerFechaComoString(dateFechaNacimiento, "dd/MM/yyyy");
+            		if(validarCamposTextoClienteNatural(nombre, apellidos, identificacion, telefono,
+                			direccion, email, fechaNacimiento)){
+                		actualizarClienteNatural(nombre, apellidos, identificacion, telefono,
+                			direccion, email, fechaNacimiento);
+                	}
+            	}
+	    	}
+			if(clienteSeleccionado instanceof ClienteJuridico){
+        		String nit = txtNit.getText();
+        		if(validarCamposTextoClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit)){
+            		actualizarClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
+        		}
+
+			}
+		}else{
+			mostrarMensaje("Gestión clientes", "Proceso incompleto", "Para poder actualizar los datos de un cliente\neste debe ser seleccionado", AlertType.INFORMATION);
+		}
     }
 
 	/**
@@ -220,6 +258,7 @@ public class ClienteController implements Initializable{
     	if(clienteSeleccionado!=null){
     		if(mfm.eliminarCliente(clienteSeleccionado)){
     			actualizarTabla();
+    			limpiarCamposTexto();
     			mostrarMensaje("Gestión clientes", "Proceso exitoso", "Se elimino correctamente el cliente", AlertType.CONFIRMATION);
     		}
     	}else{
@@ -295,7 +334,7 @@ public class ClienteController implements Initializable{
     public boolean validarCamposTextoClienteNatural(String nombre, String apellidos, String identificacion, String telefono, String direccion,
 			String email, String fechaNacimiento){
 
-    	String msj = "Debe completar los siguientes campos de texto para poder registrar al cliente:\n";
+    	String msj = "Debe completar los siguientes campos de texto para poder continuar:\n";
     	if(nombre.equals("") || nombre == null){
     		msj+="El nombre\n";
     	}
@@ -317,7 +356,7 @@ public class ClienteController implements Initializable{
     	if(fechaNacimiento.equals("") || fechaNacimiento.equals("null")){
     		msj+="La fecha de nacimiento";
     	}
-    	if(msj.equals("Debe completar los siguientes campos de texto para poder registrar al cliente:\n")){
+    	if(msj.equals("Debe completar los siguientes campos de texto para poder continuar:\n")){
     		return true;
     	}
     	mostrarMensaje("Gestión clientes", "Proceso incorrecto", msj, AlertType.INFORMATION);
@@ -338,7 +377,7 @@ public class ClienteController implements Initializable{
     public boolean validarCamposTextoClienteJuridico(String nombre, String apellidos, String identificacion, String telefono, String direccion,
 			String nit){
 
-    	String msj ="Debe completar los siguientes campos de texto para poder registrar al cliente:\n";
+    	String msj ="Debe completar los siguientes campos de texto para poder continuar:\n";
     	if(nombre.equals("") || nombre == null){
     		msj+="El nombre\n";
     	}
@@ -358,7 +397,7 @@ public class ClienteController implements Initializable{
     	if(nit.equals("") || nit==null){
     		msj+="El nit";
     	}
-    	if(msj.equals("Debe completar los siguientes campos de texto para poder registrar al cliente:\n")){
+    	if(msj.equals("Debe completar los siguientes campos de texto para poder continuar:\n")){
     		return true;
     	}
     	mostrarMensaje("Gestión clientes", "Proceso incorrecto", msj, AlertType.INFORMATION);
@@ -417,6 +456,43 @@ public class ClienteController implements Initializable{
 
 	}
 
+    /**
+     * Este metodo me muestra la informacion del cliente correspondiente
+     */
+	private void mostraInformacionCliente() {
+
+		if(clienteSeleccionado instanceof ClienteNatural){
+			txtNombre.setText(clienteSeleccionado.getNombre());
+			txtApellido.setText(clienteSeleccionado.getApellidos());
+			txtIdentificacion.setText(clienteSeleccionado.getIdentificacion());
+			txtIdentificacion.setDisable(true);//Inhabilito la identificacion ya que esta no se podra modificar
+			txtTelefono.setText(clienteSeleccionado.getTelefono());
+			txtDireccion.setText(clienteSeleccionado.getDireccion());
+			txtEmail.setText(((ClienteNatural) clienteSeleccionado).getEmail());
+			setFechaEnDatePicker(dateFechaNacimiento, ((ClienteNatural) clienteSeleccionado).getFechaNacimiento());
+			txtEmail.setDisable(false); //Habilito el campo de texto para que lo puedan editar
+			dateFechaNacimiento.setDisable(false); //Habilito el campo de texto para que lo puedan editar
+			txtNit.setText("");
+			txtNit.setDisable(true);
+
+		}
+		if(clienteSeleccionado instanceof ClienteJuridico){
+			txtNombre.setText(clienteSeleccionado.getNombre());
+			txtApellido.setText(clienteSeleccionado.getApellidos());
+			txtIdentificacion.setText(clienteSeleccionado.getIdentificacion());
+			txtIdentificacion.setDisable(true);//Inhabilito la identificacion ya que esta no se podra modificar
+			txtTelefono.setText(clienteSeleccionado.getTelefono());
+			txtDireccion.setText(clienteSeleccionado.getDireccion());
+			txtNit.setText(((ClienteJuridico) clienteSeleccionado).getNit());
+			txtNit.setDisable(false); //Habilito el campo de texto para que lo puedan editar
+			txtEmail.setText("");
+			txtEmail.setDisable(true);
+			dateFechaNacimiento.setDisable(true);
+			dateFechaNacimiento.setValue(null);
+		}
+	}
+
+
 	/**
 	 * Este metodo es para limpiar todos los campos de texto al momento de registrar un cliente
 	 */
@@ -431,4 +507,85 @@ public class ClienteController implements Initializable{
 		dateFechaNacimiento.setValue(null);
 
 	}
+
+	/**
+	 * Este metodo tiene como funcion convertir un string a un dato DatePicker, en caso de que no sea posible
+	 * muestra un mensaje al usuario
+	 * @param datePicker
+	 * @param fechaString
+	 */
+	public void setFechaEnDatePicker(DatePicker datePicker, String fechaString) {
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate fechaLocalDate = LocalDate.parse(fechaString, formato);
+            datePicker.setValue(fechaLocalDate);
+        } catch (DateTimeParseException e) {
+            mostrarMensaje("Gestión clientes", "Proceso incorrecto", "No fue posible mostrar la fecha de nacimiento\n ya que se encuentra en un formato no disponible", AlertType.INFORMATION);
+        }
+    }
+
+	 /**
+	  * Este metodo me convierte un dato de un datePicker en un string
+	  * @param datePicker
+	  * @param formato
+	  * @return
+	  */
+	 public String obtenerFechaComoString(DatePicker datePicker, String formato) {
+		 	LocalDate fechaSeleccionada = datePicker.getValue();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
+
+	        try {
+	            return fechaSeleccionada.format(formatter);
+	        } catch (DateTimeParseException e) {
+	            return null;
+	        }
+
+	   }
+
+	 /**
+	  * Este metodo es para actualizar un cliente juridico
+	  * @param nombre
+	  * @param apellidos
+	  * @param identificacion
+	  * @param telefono
+	  * @param direccion
+	  * @param nit
+	  */
+	 private void actualizarClienteJuridico(String nombre, String apellidos, String identificacion, String telefono,
+		String direccion, String nit) {
+
+		 try {
+			mfm.actualizarClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
+			mostrarMensaje("Gestión cliente", "Proceso correcto", "El cliente se actualizo correctamente", AlertType.CONFIRMATION);
+			actualizarTabla();
+			limpiarCamposTexto();
+		} catch (ClienteException e) {
+			mostrarMensaje("Gestión cliente", "Proceso incompleto", "El cliente no existe", AlertType.INFORMATION);
+			}
+		}
+
+	 /**
+	  * Este metodo es para actualizar un cliente natural
+	  * @param nombre
+	  * @param apellidos
+	  * @param identificacion
+	  * @param telefono
+	  * @param direccion
+	  * @param email
+	  * @param fechaNacimiento
+	  */
+	 private void actualizarClienteNatural(String nombre, String apellidos, String identificacion, String telefono,
+		String direccion, String email, String fechaNacimiento) {
+
+		 try {
+			mfm.actualizarClienteNatural(nombre, apellidos, identificacion, telefono, direccion, fechaNacimiento, email);
+			mostrarMensaje("Gestión cliente", "Proceso correcto", "El cliente se actualizo correctamente", AlertType.CONFIRMATION);
+			actualizarTabla();
+			limpiarCamposTexto();
+
+		} catch (ClienteException e) {
+			mostrarMensaje("Gestión cliente", "Proceso incompleto", "El cliente no existe", AlertType.INFORMATION);
+			}
+		}
+
 }

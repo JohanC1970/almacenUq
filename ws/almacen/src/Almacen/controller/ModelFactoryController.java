@@ -31,7 +31,7 @@ public class ModelFactoryController {
 		almacen = new Almacen("1234");
 
 		Cliente cliente1 = new ClienteNatural("Camilo", "Garcia", "1112728156", "3213792877",
-				"calle", "04", "gar");
+				"calle", "04/01/2004", "gar");
 
 		Cliente cliente2 = new ClienteJuridico("Miguel", "Marin", "nn", "nn",
 				"calle", "04");
@@ -50,10 +50,21 @@ public class ModelFactoryController {
 		this.almacen = almacen;
 	}
 
+	//--------------------------COMUNICACION DEL MODEL FACTORY CON EL ALMACEN--------------------------------------
+	/**
+	 * Me retorna la lista de clientes del almacen
+	 * @return
+	 */
 	public List<Cliente> getListaClientes() {
 		return almacen.getListaClientes();
 	}
 
+	/**
+	 * Es el encargado de llamar el metodo que elimina un cliente
+	 * @param clienteSeleccionado
+	 * @return
+	 * @throws ClienteException
+	 */
 	public boolean eliminarCliente(Cliente clienteSeleccionado) throws ClienteException {
 
 		if(almacen.EliminarCliente(clienteSeleccionado.getIdentificacion())){
@@ -63,16 +74,70 @@ public class ModelFactoryController {
 		return false;
 	}
 
+	/**
+	 * Es el encargado de llamar el metodo de crear un cliente juridico
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param nit
+	 * @return
+	 * @throws ClienteException
+	 */
 	public boolean crearClienteJuridico(String nombre, String apellidos, String identificacion, String telefono,
 			String direccion, String nit) throws ClienteException {
 		return almacen.crearClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
 	}
 
+	/**
+	 * Es el encargado de llamar el metodo de crear un cliente natural
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param email
+	 * @param fechaNacimiento
+	 * @return
+	 * @throws ClienteException
+	 */
 	public boolean crearClienteNatural(String nombre, String apellidos, String identificacion, String telefono,
 			String direccion, String email, String fechaNacimiento) throws ClienteException {
 
 		return almacen.crearClienteNatural(nombre, apellidos, identificacion, telefono, direccion, fechaNacimiento, email);
 	}
 
+	/**
+	 * Es el encargado de llamar el metodo para actualizar un cliente natural
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param fechaNacimiento
+	 * @param email
+	 * @throws ClienteException
+	 */
+	public void actualizarClienteNatural(String nombre, String apellidos, String identificacion, String telefono, String direccion,
+			String fechaNacimiento, String email) throws ClienteException{
+		almacen.actualizarClienteNatural(nombre, apellidos, identificacion, telefono,
+				direccion, fechaNacimiento, email);
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo para actualizar un cliente juridico
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param nit
+	 * @throws ClienteException
+	 */
+	public void actualizarClienteJuridico(String nombre, String apellidos, String identificacion, String telefono, String direccion,
+			String nit) throws ClienteException{
+		almacen.actualizarClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
+	}
 
 }
