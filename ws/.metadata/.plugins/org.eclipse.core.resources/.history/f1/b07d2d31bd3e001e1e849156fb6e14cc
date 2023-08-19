@@ -91,9 +91,6 @@ public class ClienteController implements Initializable{
     @FXML
     private Button btnActualizar;
 
-    @FXML
-    private Button btnRegresar;
-
     private Aplicacion aplicacion;
 
     private Cliente clienteSeleccionado;
@@ -175,15 +172,6 @@ public class ClienteController implements Initializable{
 
 
 	//-------------------------------------METODOS CRUD--------------------------------
-
-	/**
-	 * Este evento es para regresar a la ventana principal
-	 * @param event
-	 */
-	@FXML
-	void regresarAlmacen(ActionEvent event){
-		aplicacion.mostrarVentanaAlmacen(event);
-	}
 
 	/**
 	 * Este evento es el encargado de llamar a los metodos necesarios para crear los diferentes tipos de clientes

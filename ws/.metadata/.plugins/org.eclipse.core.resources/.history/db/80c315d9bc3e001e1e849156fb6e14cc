@@ -48,10 +48,6 @@ public class Aplicacion extends Application{
 
 	}
 
-	/**
-	 * Este metodo muestra la ventana de gestion clientes
-	 * @param event
-	 */
 	public void mostrarVentanaCliente(ActionEvent event){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -69,10 +65,6 @@ public class Aplicacion extends Application{
 		}
 	}
 
-	/**
-	 *Este evento muestra la ventana del almacen
-	 * @param event
-	 */
 	public void mostrarVentanaAlmacen(ActionEvent event){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -89,7 +81,6 @@ public class Aplicacion extends Application{
 			// TODO: handle exception
 		}
 	}
-
 	public static void main(String[]args){
 		launch(args);
 	}

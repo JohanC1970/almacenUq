@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Almacen.controller.ClienteController">
    <children>
-      <Label layoutX="407.0" layoutY="14.0" prefHeight="36.0" prefWidth="216.0" text="Gestión de clientes">
+      <Label layoutX="407.0" layoutY="11.0" prefHeight="36.0" prefWidth="216.0" text="Gestión de clientes">
          <font>
             <Font size="25.0" />
          </font>
@@ -35,7 +35,7 @@
       <DatePicker fx:id="dateFechaNacimiento" layoutX="735.0" layoutY="258.0" prefHeight="39.0" prefWidth="287.0" />
       <TextField fx:id="txtDireccion" layoutX="364.0" layoutY="187.0" prefHeight="39.0" prefWidth="287.0" />
       <Separator layoutX="9.0" layoutY="347.0" prefHeight="12.0" prefWidth="1016.0" />
-      <Button layoutX="14.0" layoutY="9.0" mnemonicParsing="false" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#regresarAlmacen" text="Regresar" />
       <Label layoutX="19.0" layoutY="357.0" text="Listado de clientes: " />
       <TableView fx:id="tablaClientes" layoutX="18.0" layoutY="386.0" prefHeight="206.0" prefWidth="997.0">
         <columns>

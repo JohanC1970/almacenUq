@@ -353,22 +353,6 @@ public class Almacen {
 		return null;
 	}
 
-	/**
-	 * Este metodo es para eliminar un producto
-	 * @param codigo
-	 * @throws ProductoException
-	 */
-	public void eliminarProducto(String codigo) throws ProductoException{
-		Producto producto = obtenerProducto(codigo);
-
-		if(producto != null){
-			listaProductos.remove(producto);
-		}else{
-			throw new ProductoException("El codigo ingresado no pertenece a ningun producto registrado");
-		}
-	}
-
-
 	//-------------------------------FUNCIONES VENTA---------------------------------------
 
 

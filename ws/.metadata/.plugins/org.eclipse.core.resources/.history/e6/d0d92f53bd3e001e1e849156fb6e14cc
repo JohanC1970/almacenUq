@@ -176,10 +176,6 @@ public class ClienteController implements Initializable{
 
 	//-------------------------------------METODOS CRUD--------------------------------
 
-	/**
-	 * Este evento es para regresar a la ventana principal
-	 * @param event
-	 */
 	@FXML
 	void regresarAlmacen(ActionEvent event){
 		aplicacion.mostrarVentanaAlmacen(event);
