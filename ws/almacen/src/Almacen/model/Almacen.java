@@ -5,6 +5,7 @@ import java.util.List;
 
 import Almacen.exception.ClienteException;
 import Almacen.exception.ProductoException;
+import Almacen.exception.VentaException;
 
 public class Almacen {
 
@@ -358,18 +359,127 @@ public class Almacen {
 	 * @param codigo
 	 * @throws ProductoException
 	 */
-	public void eliminarProducto(String codigo) throws ProductoException{
+	public boolean eliminarProducto(String codigo) throws ProductoException{
 		Producto producto = obtenerProducto(codigo);
 
 		if(producto != null){
 			listaProductos.remove(producto);
+			return true;
 		}else{
 			throw new ProductoException("El codigo ingresado no pertenece a ningun producto registrado");
 		}
 	}
 
-
 	//-------------------------------FUNCIONES VENTA---------------------------------------
+	/**
+	* Este metodo verifica si la venta existe
+	* @param codigo
+	* @return
+	*/
+	public boolean verificarExistenciaVenta(String codigo){
+		for (Venta venta : listaVentas) {
+			if(venta.getCodigo().equals(codigo))
+				return true;
+			}
+			return false;
+		}
 
+	/**
+	* Este metodo crear una venta
+	* @param codigo
+	* @param fecha
+	* @param clienteCompra
+	* @param total
+	* @return
+	* @throws VentaException
+	 */
+	public boolean crearVenta (String codigo, String fecha, Cliente clienteCompra, Double total)throws VentaException{
+		if(verificarExistenciaVenta(codigo)){
+			throw new VentaException("Esta venta ya existe");
+		}
 
+		Venta venta = new Venta(codigo, fecha, clienteCompra, total);
+		listaVentas.add(venta);
+
+		return true;
+		}
+
+	/**
+	 * Este metodo sirve para obtener una venta
+	 * @param codigo
+	 * @return
+	 */
+	public Venta obtenerVenta(String codigo){
+		for (Venta venta : listaVentas) {
+			if(venta.getCodigo().equals(codigo))
+				return venta;
+			}
+		return null;
+	}
+
+	/**
+	 * Este metodo elimina una venta
+	 * @param codigo
+	 * @throws VentaException
+	 */
+	public boolean eliminarVenta (String codigo) throws VentaException {
+		Venta venta = obtenerVenta(codigo);
+
+		if(venta != null){
+			listaVentas.remove(venta);
+			return true;
+		}else{
+			throw new VentaException ("El codigo ingresado no pertenece a ninguna venta registrada");
+			}
+		}
+
+	/**
+	* Este metodo sirve para actualizar atributos de venta excepto el codigo
+	* @param codigo
+	* @param fecha
+	* @param clienteCompra
+	* @param total
+	* @throws VentaException
+	 */
+	public void actualizarVenta (String codigo, String fecha, Cliente clienteCompra, Double total) throws VentaException {
+		Venta venta = (Venta) obtenerVenta(codigo);
+
+		if (venta != null){
+			venta.setClienteCompra(clienteCompra);
+			venta.setFecha(fecha);
+			venta.setTotal(total);
+		}else{
+			throw new VentaException ("La venta no existe");
+		}
+	}
+
+	/**
+	 * Este metodo me calcula el valor total de la venta
+	 * @param venta
+	 * @return
+	 *
+	 */
+	public double calcularTotalVenta(Venta venta){
+		double total = venta.calcularTotal();
+		return total;
+	}
+
+	/**
+	 * Este metodo me retorna cuanto cuesta cierta cantidad de productos
+	 * @param producto
+	 * @param cantidad
+	 * @return
+	 */
+	public double calcularCompraProducto(Producto producto, int cantidad){
+		return (producto.getValorUnitario() * cantidad);
+	}
+
+	public boolean comprarProducto(Venta venta, Producto producto, int cantidad) throws ProductoException{
+		if(venta.comprarProducto(producto, cantidad)){
+			venta.setTotal(calcularTotalVenta(venta));
+			return true;
+		}
+
+		return false;
+	}
 }

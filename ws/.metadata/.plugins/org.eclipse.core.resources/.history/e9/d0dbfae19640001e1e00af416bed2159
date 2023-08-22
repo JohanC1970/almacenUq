@@ -1,0 +1,197 @@
+package Almacen.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import Almacen.application.Aplicacion;
+import Almacen.model.Almacen;
+import Almacen.model.Cliente;
+import Almacen.model.DetalleVenta;
+import Almacen.model.Producto;
+import Almacen.model.Venta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
+public class DetalleVentaController implements Initializable{
+
+	ModelFactoryController mfm = ModelFactoryController.getInstance();
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TableColumn<Producto, Integer> columnaCantidad;
+
+    @FXML
+    private Button btnRealizarVenta;
+
+    @FXML
+    private TableView<DetalleVenta> tablaCarrito;
+
+    @FXML
+    private Button btnAgregarCarrito;
+
+    @FXML
+    private TextField txtSubTotal;
+
+    @FXML
+    private TableColumn<DetalleVenta,Integer> columnaCantidadCarrito;
+
+    @FXML
+    private TableColumn<Producto,Double> columnaSubTotal;
+
+    @FXML
+    private TextField txtTotal;
+
+    @FXML
+    private TableColumn<Producto,String> columnaCodigo;
+
+    @FXML
+    private TextField txtCantidad;
+
+    @FXML
+    private TableColumn<DetalleVenta,Producto> columnaProductoCarrito;
+
+    @FXML
+    private TableView<Producto> tablaProductos;
+
+    @FXML
+    private TableColumn<Producto, String> columnaNombre;
+
+    private Stage stage;
+
+    private Producto productoSeleccionado;
+
+    private Almacen almacen;
+
+    private Aplicacion aplicacion;
+
+    private Cliente clienteVenta;
+
+    private String codigoVenta;
+
+    private String fechaVenta;
+
+    private Venta venta;
+
+
+    ObservableList<Producto>listadoProductos = FXCollections.observableArrayList();
+    ObservableList<DetalleVenta>listadoCarrito= FXCollections.observableArrayList();
+
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public Aplicacion getAplicacion() {
+		return aplicacion;
+	}
+
+	public void setAplicacion(Aplicacion aplicacion, String codigo, String fecha, Cliente cliente) {
+		this.aplicacion = aplicacion;
+		this.almacen= mfm.getAlmacen();
+		this.codigoVenta = codigo;
+		this.fechaVenta=fecha;
+		this.clienteVenta=cliente;
+
+		tablaProductos.getItems().clear();
+		tablaCarrito.getItems().clear();
+
+		tablaProductos.setItems(getListadoProductos());
+	}
+
+	private ObservableList<Producto> getListadoProductos() {
+		listadoProductos.addAll(mfm.getListaProductos());
+		return listadoProductos;
+	}
+
+	private ObservableList<DetalleVenta> getListadoDetalleVenta(){
+		listadoCarrito.addAll(venta.getListaDetalleVenta());
+		return listadoCarrito;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+    	this.columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+    	this.columnaCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+    	this.columnaCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidadExistencia"));
+
+    	this.columnaProductoCarrito.setCellValueFactory(new PropertyValueFactory<>("productoVendido"));
+    	this.columnaCantidadCarrito.setCellValueFactory(new PropertyValueFactory<>("cantidadProducto"));
+    	this.columnaSubTotal.setCellValueFactory(new PropertyValueFactory<>("subTotal"));
+
+
+		txtTotal.setDisable(true);
+		txtSubTotal.setDisable(true);
+
+    	tablaProductos.getSelectionModel().selectedItemProperty().addListener((obs,oldselection,newSelection) ->{
+			if(newSelection != null){
+				productoSeleccionado = newSelection;
+			}
+		});
+
+	}
+
+    @FXML
+    void validarIngresoNumeros(KeyEvent event) {
+
+    	if(event.getTarget() == txtCantidad){
+			if(!Character.isDigit(event.getCharacter().charAt(0))){
+				event.consume();
+			}
+		}
+    }
+
+    @FXML
+    void agregarDetalleVenta(ActionEvent event) {
+
+    	if(productoSeleccionado!=null){
+    		if(txtCantidad.equals("") || txtCantidad == null){
+    			mostrarMensaje("Gestión detalle venta", "Proceso incompleto", "Por favor llenar correctamente el formulario", AlertType.INFORMATION);
+    		}else{
+
+    		}
+    	}
+    }
+
+    @FXML
+    void realizarVenta(ActionEvent event) {
+
+    }
+
+    /**
+     * Muestra un mensaje dependiendo con el tipo de alerta seleccionado
+     * @param title
+     * @param header
+     * @param content
+     * @param alertType
+     */
+    public void mostrarMensaje(String title, String header, String content, AlertType alertType) {
+		Alert alert = new Alert(alertType);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
+    }
+}
+

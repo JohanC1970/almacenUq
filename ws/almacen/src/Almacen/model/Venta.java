@@ -3,6 +3,8 @@ package Almacen.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import Almacen.exception.ProductoException;
+
 public class Venta {
 
 	private String codigo;
@@ -12,8 +14,7 @@ public class Venta {
 	private static final Double IVA = 0.19;
 	private List<DetalleVenta> listaDetalleVenta = new ArrayList<DetalleVenta>();
 
-	public Venta(String codigo, String fecha, Cliente clienteCompra, Double total,
-			List<DetalleVenta> listaDetalleVenta) {
+	public Venta(String codigo, String fecha, Cliente clienteCompra, Double total) {
 		super();
 		this.codigo = codigo;
 		this.fecha = fecha;
@@ -121,5 +122,36 @@ public class Venta {
 				+ ", listaDetalleVenta=" + listaDetalleVenta + "]";
 	}
 
+	/**
+	 * Se calcula el total de la venta
+	 * @return
+	 */
+	public double calcularTotal() {
+		double total=0.0;
+		for (DetalleVenta detalleVenta : this.getListaDetalleVenta()) {
+			total+= detalleVenta.getSubTotal();
+		}
+		return total;
+	}
+
+	/**
+	 * Este metodo es para realizar la compra de un producto
+	 * @param producto
+	 * @param cantidad
+	 * @return
+	 * @throws ProductoException
+	 */
+	public boolean comprarProducto(Producto producto, int cantidad) throws ProductoException{
+
+		if(producto.getCantidadExistencia()>=cantidad){
+			producto.setCantidadExistencia(producto.getCantidadExistencia()-cantidad);
+			double subTotal = producto.getValorUnitario()*cantidad;
+			DetalleVenta detalleVenta = new DetalleVenta(producto, cantidad, subTotal);
+			this.getListaDetalleVenta().add(detalleVenta);
+			return true;
+		}else{
+			throw new ProductoException("No hay unidades disponibles para realizar la compra");
+		}
+	}
 
 }

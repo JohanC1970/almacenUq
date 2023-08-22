@@ -51,7 +51,7 @@ public class ProductoRefrigerado extends Producto{
 	}
 	@Override
 	public String toString() {
-		return "ProductoRefrigerado [codigoAprobacion=" + codigoAprobacion + ", temperaturaRefrigeracion="
+		return super.toString()+"ProductoRefrigerado [codigoAprobacion=" + codigoAprobacion + ", temperaturaRefrigeracion="
 				+ temperaturaRefrigeracion + "]";
 	}
 

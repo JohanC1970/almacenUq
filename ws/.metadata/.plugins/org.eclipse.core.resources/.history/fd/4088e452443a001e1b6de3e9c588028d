@@ -1,5 +1,0 @@
-package Almacen.exception;
-
-public class ClienteException {
-
-}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="394.0" layoutY="2.0" text="Gestión productos">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="3.0" layoutY="5.0" mnemonicParsing="false" text="Regresar" />
+      <Separator layoutX="4.0" layoutY="45.0" prefHeight="8.0" prefWidth="1023.0" />
+      <Label layoutX="97.0" layoutY="106.0" text="Label" />
+      <TextField layoutX="205.0" layoutY="224.0" />
+   </children>
+</AnchorPane>

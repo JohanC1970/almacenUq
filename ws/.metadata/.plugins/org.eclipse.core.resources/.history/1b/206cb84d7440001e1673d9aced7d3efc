@@ -1,0 +1,148 @@
+package Almacen.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import Almacen.application.Aplicacion;
+import Almacen.model.Almacen;
+import Almacen.model.Cliente;
+import Almacen.model.Venta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
+public class VentaController implements Initializable{
+
+	ModelFactoryController mfm = ModelFactoryController.getInstance();
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TableView<Venta> tableVenta;
+
+    @FXML
+    private TableColumn<Venta, String> columnFecha;
+
+    @FXML
+    private TableColumn<Venta, Cliente> columnCliente;
+
+    @FXML
+    private Button btnRegresar;
+
+    @FXML
+    private TableColumn<Venta,String> columnCodigo;
+
+    @FXML
+    private Button btnContinuar;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private TextField txtCodigo;
+
+    @FXML
+    private DatePicker dateFecha;
+
+    @FXML
+    private TextField txtIdentificacion;
+
+    @FXML
+    private TableColumn<Venta, Double> columnTotal;
+
+    private Venta ventaSeleccionada;
+
+    private Cliente clienteVenta;
+
+    private Stage stage;
+
+    private Aplicacion aplicacion;
+
+    private Almacen almacen;
+
+    ObservableList<Venta>listadoVentas = FXCollections.observableArrayList();
+
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public Aplicacion getAplicacion() {
+		return aplicacion;
+	}
+
+	public void setAplicacion(Aplicacion aplicacion) {
+		this.aplicacion = aplicacion;
+		this.almacen = mfm.getAlmacen();
+
+		tableVenta.getItems().clear();
+		tableVenta.setItems(getVentas());
+	}
+
+	private ObservableList<Venta> getVentas() {
+		listadoVentas.addAll(mfm.getListaVentas());
+		return listadoVentas;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+		this.columnCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+		this.columnFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+		this.columnCliente.setCellValueFactory(new PropertyValueFactory<>("clienteCompra"));
+		this.columnTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+		tableVenta.getSelectionModel().selectedItemProperty().addListener((obs,oldselection,newSelection) ->{
+			if(newSelection != null){
+				ventaSeleccionada = newSelection;
+			}
+		});
+
+	}
+
+    @FXML
+    void lanzarVentanaPrincipal(ActionEvent event) {
+
+    }
+
+    @FXML
+    void lanzarVentanaInfoCliente(ActionEvent event) {
+
+    }
+
+    @FXML
+    void eliminarVenta(ActionEvent event) {
+
+    }
+
+    /**
+     * Este evento es para verificar que solo ingresen numeros en el campo de texto de la identificacion
+     * @param event
+     */
+    @FXML
+    void validarIngresoNumeros(KeyEvent event) {
+    	if(event.getTarget() == txtIdentificacion){
+			if(!Character.isDigit(event.getCharacter().charAt(0))){
+				event.consume();
+			}
+		}
+    }
+}

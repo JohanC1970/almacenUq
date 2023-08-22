@@ -1,8 +1,0 @@
-package Almacen.model;
-
-public class ProductoEnvasado extends Producto{
-
-	private String fechaEnvasado;
-	private double peso;
-	private PaisOrigen paisOrigen;
-}

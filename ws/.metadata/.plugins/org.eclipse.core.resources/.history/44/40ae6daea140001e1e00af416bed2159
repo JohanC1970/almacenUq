@@ -1,0 +1,5 @@
+package Almacen.controller;
+
+public class ProductoController {
+
+}

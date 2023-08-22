@@ -1,5 +1,7 @@
 package Almacen.model;
 
+import Almacen.exception.DetalleVentaException;
+
 public class DetalleVenta {
 
 	private Producto productoVendido;
@@ -70,7 +72,4 @@ public class DetalleVenta {
 		return "DetalleVenta [productoVendido=" + productoVendido + ", cantidadProducto=" + cantidadProducto
 				+ ", subTotal=" + subTotal + "]";
 	}
-
-
-
 }

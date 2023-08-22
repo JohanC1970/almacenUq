@@ -64,7 +64,7 @@ public class ClienteNatural extends Cliente{
 
 	@Override
 	public String toString() {
-		return "ClienteNatural [fechaNacimiento=" + fechaNacimiento + ", email=" + email + "]";
+		return super.toString()+"ClienteNatural [fechaNacimiento=" + fechaNacimiento + ", email=" + email + "]";
 	}
 
     /**

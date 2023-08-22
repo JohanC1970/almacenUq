@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="494.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Almacen.controller.DetalleVentaController">
+   <children>
+      <Label layoutX="407.0" layoutY="6.0" text="Detalles de la venta">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Separator layoutX="4.0" layoutY="40.0" prefHeight="13.0" prefWidth="1024.0" />
+      <TabPane layoutX="4.0" layoutY="47.0" prefHeight="447.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Productos">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tablaProductos" layoutX="14.0" layoutY="36.0" prefHeight="353.0" prefWidth="656.0">
+                          <columns>
+                            <TableColumn fx:id="columnaCodigo" prefWidth="220.0" text="Codigo" />
+                            <TableColumn fx:id="columnaNombre" prefWidth="276.0" text="Nombre" />
+                              <TableColumn fx:id="columnaCantidad" minWidth="0.0" prefWidth="158.0" text="Cant/disponible" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="14.0" layoutY="6.0" text="Seleccione por favor el producto que desea comprar:" />
+                        <Label layoutX="716.0" layoutY="109.0" text="Ingrese la cantidad del producto:" />
+                        <TextField fx:id="txtCantidad" layoutX="716.0" layoutY="143.0" onKeyTyped="#validarIngresoNumeros" />
+                        <TextField fx:id="txtSubTotal" layoutX="716.0" layoutY="219.0" />
+                        <Label layoutX="716.0" layoutY="188.0" text="Subtotal:" />
+                        <Button fx:id="btnAgregarCarrito" layoutX="746.0" layoutY="289.0" mnemonicParsing="false" onAction="#agregarDetalleVenta" text="Agregar al carrito" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Carrito de compras">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tablaCarrito" layoutX="14.0" layoutY="32.0" prefHeight="307.0" prefWidth="993.0">
+                          <columns>
+                            <TableColumn fx:id="columnaProductoCarrito" prefWidth="593.0" text="Producto" />
+                            <TableColumn fx:id="columnaCantidadCarrito" prefWidth="179.0" text="Cantidad" />
+                              <TableColumn fx:id="columnaSubTotal" prefWidth="220.0" text="Subtotal" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="14.0" layoutY="3.0" text="Listado de productos seleccionados:" />
+                        <Button fx:id="btnRealizarVenta" layoutX="445.0" layoutY="347.0" mnemonicParsing="false" onAction="#realizarVenta" text="Realizar venta" />
+                        <TextField fx:id="txtTotal" layoutX="783.0" layoutY="341.0" />
+                        <Label layoutX="732.0" layoutY="347.0" text="Total:" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="26.0" layoutY="4.0" mnemonicParsing="false" text="Cancelar compra" />
+   </children>
+</AnchorPane>

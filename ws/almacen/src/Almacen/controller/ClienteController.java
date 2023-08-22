@@ -128,6 +128,7 @@ public class ClienteController implements Initializable{
     	txtEmail.setDisable(true);
     	dateFechaNacimiento.setDisable(true);
 
+
     	//Se crea un oyente al combobox para asegurarnos que cada vez que seleccionen una opcion
     	//se habiliten los campos de texto correspondientes
     	comboxTipoCliente.setOnAction(new EventHandler<ActionEvent>(){
@@ -545,7 +546,6 @@ public class ClienteController implements Initializable{
 	 public String obtenerFechaComoString(DatePicker datePicker, String formato) {
 		 	LocalDate fechaSeleccionada = datePicker.getValue();
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
-
 	        try {
 	            return fechaSeleccionada.format(formatter);
 	        } catch (DateTimeParseException e) {

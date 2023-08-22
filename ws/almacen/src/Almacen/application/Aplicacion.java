@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import Almacen.controller.AlmacenController;
 import Almacen.controller.ClienteController;
+import Almacen.controller.DetalleVentaController;
+import Almacen.controller.InformacionClienteController;
+import Almacen.controller.ProductoController;
+import Almacen.controller.VentaController;
+import Almacen.model.Cliente;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +73,94 @@ public class Aplicacion extends Application{
 			// TODO: handle exception
 		}
 	}
+
+	/**
+	 * Este metodo muestra la ventana de gestion clientes
+	 * @param event
+	 */
+	public void mostrarVentanaProducto(ActionEvent event){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Aplicacion.class.getResource("/Almacen/view/ProductoView.fxml"));
+			AnchorPane anchorPane = (AnchorPane)loader.load();
+			ProductoController productoController = loader.getController();
+			productoController.setAplicacion(this);
+
+			Scene scene = new Scene(anchorPane);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+	}
+
+	/**
+	 * Este metodo muestra la ventana de gestion clientes
+	 * @param event
+	 */
+	public void mostrarVentanaVenta(ActionEvent event){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Aplicacion.class.getResource("/Almacen/view/VentaView.fxml"));
+			AnchorPane anchorPane = (AnchorPane)loader.load();
+			VentaController ventaController = loader.getController();
+			ventaController.setAplicacion(this);
+
+			Scene scene = new Scene(anchorPane);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+	}
+	/**
+	 * Metodo para mostrar la ventana de informacion cliente
+	 * @param event
+	 * @param empleado
+	 */
+	public void mostrarVentanaInformacionCliente(ActionEvent event, String codigo, String fecha, Cliente cliente){
+		try {
+		 	FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Aplicacion.class.getResource("/Almacen/view/InformacionClienteView.fxml"));
+			AnchorPane anchorPane = (AnchorPane)loader.load();
+			InformacionClienteController informacionClienteController = loader.getController();
+			informacionClienteController.setAplicacion(this,codigo,fecha,cliente);
+
+			Scene scene = new Scene(anchorPane);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Metodo para mostrar la ventana de informacion cliente
+	 * @param event
+	 * @param empleado
+	 */
+	public void mostrarVentanaDetalleVenta(ActionEvent event, String codigo, String fecha, Cliente cliente){
+		try {
+		 	FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Aplicacion.class.getResource("/Almacen/view/DetalleVentaView.fxml"));
+			AnchorPane anchorPane = (AnchorPane)loader.load();
+			DetalleVentaController detalleVentaController = loader.getController();
+			detalleVentaController.setAplicacion(this,codigo,fecha,cliente);
+
+			Scene scene = new Scene(anchorPane);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 *Este evento muestra la ventana del almacen

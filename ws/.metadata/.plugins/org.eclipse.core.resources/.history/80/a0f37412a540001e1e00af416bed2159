@@ -1,0 +1,326 @@
+package Almacen.controller;
+
+import java.util.List;
+
+import Almacen.exception.ClienteException;
+import Almacen.exception.ProductoException;
+import Almacen.exception.VentaException;
+import Almacen.model.Almacen;
+import Almacen.model.Cliente;
+import Almacen.model.ClienteJuridico;
+import Almacen.model.ClienteNatural;
+import Almacen.model.PaisOrigen;
+import Almacen.model.Producto;
+import Almacen.model.ProductoPerecedero;
+import Almacen.model.Venta;
+
+public class ModelFactoryController {
+
+	Almacen almacen = null;
+	private static class SingletonHolder {
+		// El constructor de Singleton puede ser llamado desde aquí al ser protected
+		private final static ModelFactoryController eINSTANCE = new ModelFactoryController();
+	}
+
+	// Método para obtener la instancia de nuestra clase
+	public static ModelFactoryController getInstance() {
+		return SingletonHolder.eINSTANCE;
+	}
+
+	public ModelFactoryController() {
+		System.out.println("invocación clase singleton");
+		inicializarDatos();
+	}
+
+	private void inicializarDatos() {
+
+		almacen = new Almacen("1234");
+
+		Cliente cliente1 = new ClienteNatural("Camilo", "Garcia", "1112728156", "3213792877",
+				"calle", "04/01/2004", "gar");
+
+		Cliente cliente2 = new ClienteJuridico("Miguel", "Marin", "nn", "nn",
+				"calle", "04");
+
+		almacen.getListaClientes().add(cliente1);
+		almacen.getListaClientes().add(cliente2);
+
+		Venta venta = new Venta("01","21/08/2023", cliente1, 10000.0);
+		almacen.getListaVentas().add(venta);
+
+		Producto producto = new ProductoPerecedero("03", "Arroz", "Nutritivo", 2100.0, 100, "01/09/2030");
+		almacen.getListaProductos().add(producto);
+	}
+
+	public Almacen getAlmacen() {
+		return almacen;
+	}
+
+	public void setAlmacen(Almacen almacen) {
+		this.almacen = almacen;
+	}
+
+	//--------------------------COMUNICACION DEL MODEL FACTORY CON EL ALMACEN--------------------------------------
+	/**
+	 * Me retorna la lista de clientes del almacen
+	 * @return
+	 */
+	public List<Cliente> getListaClientes() {
+		return almacen.getListaClientes();
+	}
+
+	/**
+	 * Me retorna la lista de ventas del almacen
+	 * @return
+	 */
+	public List<Venta> getListaVentas() {
+		return almacen.getListaVentas();
+	}
+
+	/**
+	 * Me retorna la lista de productos del almacen
+	 * @return
+	 */
+	public List<Producto> getListaProductos() {
+		return almacen.getListaProductos();
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo que elimina un cliente
+	 * @param clienteSeleccionado
+	 * @return
+	 * @throws ClienteException
+	 */
+	public boolean eliminarCliente(Cliente clienteSeleccionado) throws ClienteException {
+
+		if(almacen.EliminarCliente(clienteSeleccionado.getIdentificacion())){
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo de crear un cliente juridico
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param nit
+	 * @return
+	 * @throws ClienteException
+	 */
+	public boolean crearClienteJuridico(String nombre, String apellidos, String identificacion, String telefono,
+			String direccion, String nit) throws ClienteException {
+		return almacen.crearClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo de crear un cliente natural
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param email
+	 * @param fechaNacimiento
+	 * @return
+	 * @throws ClienteException
+	 */
+	public boolean crearClienteNatural(String nombre, String apellidos, String identificacion, String telefono,
+			String direccion, String email, String fechaNacimiento) throws ClienteException {
+
+		return almacen.crearClienteNatural(nombre, apellidos, identificacion, telefono, direccion, fechaNacimiento, email);
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo para actualizar un cliente natural
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param fechaNacimiento
+	 * @param email
+	 * @throws ClienteException
+	 */
+	public void actualizarClienteNatural(String nombre, String apellidos, String identificacion, String telefono, String direccion,
+			String fechaNacimiento, String email) throws ClienteException{
+		almacen.actualizarClienteNatural(nombre, apellidos, identificacion, telefono,
+				direccion, fechaNacimiento, email);
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo para actualizar un cliente juridico
+	 * @param nombre
+	 * @param apellidos
+	 * @param identificacion
+	 * @param telefono
+	 * @param direccion
+	 * @param nit
+	 * @throws ClienteException
+	 */
+	public void actualizarClienteJuridico(String nombre, String apellidos, String identificacion, String telefono, String direccion,
+			String nit) throws ClienteException{
+		almacen.actualizarClienteJuridico(nombre, apellidos, identificacion, telefono, direccion, nit);
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo para eliminar una venta
+	 * @param ventaSeleccionada
+	 * @return
+	 * @throws VentaException
+	 */
+	public boolean eliminarVenta(Venta ventaSeleccionada) throws VentaException {
+
+		return almacen.eliminarVenta(ventaSeleccionada.getCodigo());
+	}
+
+	/**
+	 * Es el encargado de llamar el metodo para obtener un cliente
+	 * @param identificacion
+	 * @return
+	 */
+	public Cliente obtenerCliente(String identificacion) {
+		return almacen.obtenerCliente(identificacion);
+	}
+
+	/**
+	 * Este metodo verifica la existencia de una venta
+	 * @param codigo
+	 * @return
+	 */
+	public boolean verificarExistenciaVenta(String codigo) {
+		return almacen.verificarExistenciaVenta(codigo);
+	}
+
+	/**
+	 * Este metodo me compra un producto
+	 * @param productoSeleccionado
+	 * @param cantidad
+	 * @return
+	 */
+	public double calcularCompraProducto(Producto productoSeleccionado, int cantidad) {
+		return almacen.calcularCompraProducto(productoSeleccionado, cantidad);
+	}
+
+	/**
+	 * Este metodo me calcula el total de una venta
+	 * @param ventaCompletada
+	 * @return
+	 */
+	public double calcularTotalVenta(Venta ventaCompletada) {
+		return almacen.calcularTotalVenta(ventaCompletada);
+	}
+
+	/**
+	 * Este metodo es para crear una venta
+	 * @param codigo
+	 * @param fecha
+	 * @param clienteCompra
+	 * @param total
+	 * @return
+	 * @throws VentaException
+	 */
+	public boolean crearVenta (String codigo, String fecha, Cliente clienteCompra, Double total) throws VentaException{
+		return almacen.crearVenta(codigo, fecha, clienteCompra, total);
+	}
+
+	public boolean comprarProducto(Venta venta, Producto producto, int cantidad) throws ProductoException{
+		return almacen.comprarProducto(venta, producto, cantidad);
+	}
+
+
+	//---------------------------------------------Funciones Miguel--------------------------------------------------------------------------
+	/**
+	 * Este metodo se encarga de llamar la funcion de crearProductoPerecedero en la clase almacen
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param valorUnitario
+	 * @param cantidadExistencia
+	 * @param fechaVencimiento
+	 * @return
+	 * @throws ProductoException
+	 */
+		public boolean crearProductoPerecedero(String codigo, String nombre, String descripcion,
+				double valorUnitario,int cantidadExistencia, String fechaVencimiento) throws ProductoException{
+			return almacen.crearProductoPerecedero(codigo, nombre, descripcion, valorUnitario, cantidadExistencia, fechaVencimiento);
+		}
+
+	/**
+	 * Este metodo se encarga de llamar la funcion de crearProductoRefrigerado en la clase almacen
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param valorUnitario
+	 * @param cantidadExistencia
+	 * @param temperaturaRefrigeracion
+	 * @param codigoAprobacion
+	 * @return
+	 * @throws ProductoException
+	 */
+		public boolean crearProductoRefrigerado(String codigo, String nombre, String descripcion, Double valorUnitario,
+				int cantidadExistencia, int temperaturaRefrigeracion, String codigoAprobacion) throws ProductoException {
+			// TODO Auto-generated method stub
+			return almacen.crearProductoRefrigerado(codigo, nombre, descripcion, valorUnitario, cantidadExistencia, codigoAprobacion, temperaturaRefrigeracion);
+
+		}
+
+	/**
+	 * Este metodo se encarga de llamar la funcion de crearProductoEnvasado en la clase almacen
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param valorUnitario
+	 * @param cantidadExistencia
+	 * @param paisOrigen
+	 * @param pesoEnvasado
+	 * @param fechaEnvasado
+	 * @return
+	 * @throws ProductoException
+	 */
+		public boolean crearProductoEnvasado(String codigo, String nombre, String descripcion, Double valorUnitario,
+				int cantidadExistencia, PaisOrigen paisOrigen, String pesoEnvasado, String fechaEnvasado) throws ProductoException {
+			// TODO Auto-generated method stub
+			double peso = Double.parseDouble(pesoEnvasado);
+			return almacen.crearProductoEnvasado(codigo, nombre, descripcion, valorUnitario, cantidadExistencia, fechaEnvasado, peso, paisOrigen);
+		}
+
+	/**
+	 * Este metodo se encarga de llamar la funcion de eliminarProducto que se encuentra en la clase almacen
+	 * @param productoSeleccionado
+	 * @return
+	 * @throws ProductoException
+	 */
+		public boolean eliminarProducto(Producto productoSeleccionado) throws ProductoException {
+			// TODO Auto-generated method stub
+			if(almacen.eliminarProducto(productoSeleccionado.getCodigo())){
+				return true;
+			}
+			return false;
+		}
+	/**
+	 * Este metodo se encarga de actualizar los datos de un producto perecedero
+	 * @param nombre
+	 * @param codigo
+	 * @param cantidadExistencia
+	 * @param valorUnitario
+	 * @param descripcion
+	 * @param fechaVencimiento
+	 * @throws ProductoException
+	 */
+	public void actualizarProductoPerecedero(String nombre, String codigo, int cantidadExistencia, double valorUnitario,
+			String descripcion, String fechaVencimiento) throws ProductoException {
+		// TODO Auto-generated method stub
+		almacen.crearProductoPerecedero(codigo, nombre, descripcion, valorUnitario, cantidadExistencia, fechaVencimiento);
+	}
+
+	public void actualizarProductoRefrigerado(String nombre, String codigo, int cantidadExistencia, double valorUnitario2,
+			String descripcion, int temRecomendada, String codigoAprobacion) throws ProductoException {
+		// TODO Auto-generated method stub
+		almacen.crearProductoRefrigerado(codigo, nombre, descripcion, valorUnitario2, cantidadExistencia, codigoAprobacion, temRecomendada);
+	}
+
+}

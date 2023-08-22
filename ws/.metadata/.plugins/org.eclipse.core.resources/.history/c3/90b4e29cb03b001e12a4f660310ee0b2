@@ -1,7 +1,0 @@
-package Almacen.model;
-
-public enum TipoPersona {
-
-	NATURAL,JURIDICA
-
-}
